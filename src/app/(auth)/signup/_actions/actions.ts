@@ -1,16 +1,14 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { AddUserSchemaValues } from '../_components/validation'
+import { SignUpEmailSchemaValues } from '../_components/validation'
 import { auth } from '@/lib/auth'
 
-export async function addUser(values: AddUserSchemaValues) {
+export async function signUpEmail(values: SignUpEmailSchemaValues) {
   try {
-    // await adminActionGuard()
-
     const { name, email, password } = values
 
-    const data = await auth.api.signUpEmail({
+    await auth.api.signUpEmail({
       body: {
         name,
         email,
@@ -20,7 +18,7 @@ export async function addUser(values: AddUserSchemaValues) {
 
     return {
       status: 'success',
-      message: 'User added successfully',
+      message: 'Signed up successfully',
     }
   } catch (error) {
     if (error instanceof Error) {
