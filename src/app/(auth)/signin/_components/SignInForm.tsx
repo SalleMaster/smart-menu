@@ -31,7 +31,11 @@ import {
 } from './validation'
 import { signInWithEmail } from '../../_actions/actions'
 
-export default function SignInForm() {
+type Props = {
+  callbackUrl: string
+}
+
+export default function SignInForm({ callbackUrl }: Props) {
   const router = useRouter()
 
   const form = useForm<SignInWithEmailSchemaValues>({
@@ -55,7 +59,7 @@ export default function SignInForm() {
         if (response.status === 'success') {
           toast.success(response.message)
           form.reset()
-          router.push('/dashboard')
+          router.push(callbackUrl)
         }
       }
     } catch (error) {

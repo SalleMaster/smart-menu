@@ -14,7 +14,7 @@ export default function DashboardLayout({
   return (
     <>
       <Header />
-      {children}
+      <main className='container mx-auto py-4'>{children}</main>
     </>
   )
 }
