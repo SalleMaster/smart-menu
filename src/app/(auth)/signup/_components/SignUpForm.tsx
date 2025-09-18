@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -27,7 +28,6 @@ import { Input } from '@/components/ui/input'
 import { signUpEmailSchema, SignUpEmailSchemaValues } from './validation'
 import { signUpEmail } from '../_actions/actions'
 import { Loader2, UserPen } from 'lucide-react'
-import Link from 'next/link'
 
 export default function SignUpForm() {
   const form = useForm<SignUpEmailSchemaValues>({
