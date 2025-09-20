@@ -36,6 +36,7 @@ export default function SignUpForm() {
       name: '',
       email: '',
       password: '',
+      confirmPassword: '',
     },
   })
 
@@ -72,7 +73,7 @@ export default function SignUpForm() {
       </CardHeader>
       <CardContent className='space-y-6'>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
             <FormField
               control={form.control}
               name='name'
@@ -86,13 +87,12 @@ export default function SignUpForm() {
                       disabled={isSubmitting}
                     />
                   </FormControl>
-                  <FormDescription>
-                    This is your public display name.
-                  </FormDescription>
+                  <FormDescription>Public display name.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name='email'
@@ -106,11 +106,12 @@ export default function SignUpForm() {
                       disabled={isSubmitting}
                     />
                   </FormControl>
-                  <FormDescription>This is your email address.</FormDescription>
+                  <FormDescription>Email address.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name='password'
@@ -125,9 +126,27 @@ export default function SignUpForm() {
                       disabled={isSubmitting}
                     />
                   </FormControl>
-                  <FormDescription>
-                    This is your account password.
-                  </FormDescription>
+                  <FormDescription>Account password.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name='confirmPassword'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Confirm Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      type='password'
+                      placeholder='••••••••'
+                      {...field}
+                      disabled={isSubmitting}
+                    />
+                  </FormControl>
+                  <FormDescription>Confirm your password.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

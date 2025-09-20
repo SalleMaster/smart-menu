@@ -1,4 +1,5 @@
 'use client'
+
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -17,11 +18,10 @@ export default function UserDropdown() {
   const router = useRouter()
 
   const handleSignOut = async () => {
-    // return await authClient.signOut()
     return await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          router.push('/signin') // redirect to sign in page
+          router.push('/signin')
         },
       },
     })
