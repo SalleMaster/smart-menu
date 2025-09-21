@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
@@ -20,38 +19,31 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
 import { Loader2, UserPen } from 'lucide-react'
 
 import {
-  signInWithEmailSchema,
-  SignInWithEmailSchemaValues,
+  addOrganizationSchema,
+  AddOrganizationSchemaValues,
 } from './validation'
-import { signInWithEmail } from '../../_actions/actions'
+import { addOrganization } from '../../_actions/actions'
 
-type Props = {
-  callbackUrl: string
-}
-
-export default function SignInForm({ callbackUrl }: Props) {
-  const router = useRouter()
-
-  const form = useForm<SignInWithEmailSchemaValues>({
-    resolver: zodResolver(signInWithEmailSchema),
+export default function AddOrganizationForm() {
+  const form = useForm<AddOrganizationSchemaValues>({
+    resolver: zodResolver(addOrganizationSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      name: '',
+      slug: '',
     },
   })
 
   const isSubmitting = form.formState.isSubmitting
 
-  async function onSubmit(values: SignInWithEmailSchemaValues) {
+  async function onSubmit(values: AddOrganizationSchemaValues) {
     try {
-      const response = await signInWithEmail({ ...values })
+      const response = await addOrganization({ ...values })
       if (response) {
         if (response.status === 'fail') {
           return toast.warning(response.message)
@@ -60,7 +52,6 @@ export default function SignInForm({ callbackUrl }: Props) {
         if (response.status === 'success') {
           toast.success(response.message)
           form.reset()
-          router.push(callbackUrl)
         }
       }
     } catch (error) {
@@ -73,47 +64,46 @@ export default function SignInForm({ callbackUrl }: Props) {
   }
 
   return (
-    <Card className='w-full sm:max-w-md'>
+    <Card className='w-full sm:max-w-md sm:mx-auto'>
       <CardHeader>
-        <CardTitle>Sign in</CardTitle>
-        <CardDescription>Welcome back! Sign in to your account</CardDescription>
+        <CardTitle>Add Organization</CardTitle>
+        <CardDescription>Add a new client organization</CardDescription>
       </CardHeader>
       <CardContent className='space-y-6'>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
             <FormField
               control={form.control}
-              name='email'
+              name='name'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder='john.doe@example.com'
                       {...field}
+                      placeholder='Some company'
                       disabled={isSubmitting}
                     />
                   </FormControl>
-                  <FormDescription>Email address</FormDescription>
+                  <FormDescription>Organization name</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name='password'
+              name='slug'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>Slug</FormLabel>
                   <FormControl>
                     <Input
-                      type='password'
-                      placeholder='••••••••'
                       {...field}
+                      placeholder='some-company'
                       disabled={isSubmitting}
                     />
                   </FormControl>
-                  <FormDescription>Password</FormDescription>
+                  <FormDescription>Organization slug</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -126,23 +116,12 @@ export default function SignInForm({ callbackUrl }: Props) {
                 ) : (
                   <UserPen className='mr-2 h-4 w-4' />
                 )}
-                Sign In
+                Add Organization
               </Button>
             </div>
           </form>
         </Form>
       </CardContent>
-      <CardFooter className='flex justify-center'>
-        <span className='text-sm text-muted-foreground'>
-          Don&apos;t have an account?{' '}
-          <a
-            href='mailto:support@example.com'
-            className='text-primary underline hover:opacity-80'
-          >
-            Contact us
-          </a>
-        </span>
-      </CardFooter>
     </Card>
   )
 }

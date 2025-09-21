@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { use } from 'react'
 import { Session } from '@/lib/auth-client'
 import UserDropdown from './UserDropdown'
+import { ModeToggle } from '@/components/ui/mode-toggle'
 
 type Props = {
   sessionPromise: Promise<Session | null>
@@ -19,6 +20,7 @@ export default function NavBar({ sessionPromise }: Props) {
       </Link>
 
       <div className='flex gap-3 align-middle'>
+        <ModeToggle />
         {session ? <UserDropdown /> : 'Logged out'}
         {/* {user && <CartButton cartItemsNumber={cartItemsNumber} />} */}
         {/* <User user={user} /> */}
