@@ -9,14 +9,6 @@ export type SearchParams = Promise<{
   [key: string]: string | string[] | undefined
 }>
 
-// export const ACTION_RESPONSE_STATUS = {
-//   SUCCESS: 'success',
-//   FAIL: 'fail',
-// } as const
-
-// export type ActionResponseStatus =
-//   (typeof ACTION_RESPONSE_STATUS)[keyof typeof ACTION_RESPONSE_STATUS]
-
 export type ActionResponse = {
   status: 'success' | 'fail'
   message: string

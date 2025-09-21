@@ -17,7 +17,6 @@ const signUpEmailSchema = z
       .max(100, { message: 'Password must be at most 100 characters long' }),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    // Add a custom error message for confirmPassword field
     message: 'Passwords do not match',
     path: ['confirmPassword'],
   })
