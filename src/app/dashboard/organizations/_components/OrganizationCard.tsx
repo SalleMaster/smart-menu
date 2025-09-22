@@ -51,12 +51,9 @@ export default function OrganizationCard({ organization }: Props) {
 export function OrganizationCardSkeleton() {
   return (
     <Card className='p-4'>
-      <div className='w-full flex items-center gap-4 pr-4'>
-        <div className='w-6'>
-          <SquareUser />
-        </div>
-
-        <Skeleton className='h-4 w-full' />
+      <div className='flex gap-4 items-center w-full'>
+        <Hash />
+        <Skeleton className='h-9 w-full' />
       </div>
     </Card>
   )
