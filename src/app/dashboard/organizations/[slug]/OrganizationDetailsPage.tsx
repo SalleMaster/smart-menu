@@ -17,9 +17,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { EditOrganizationForm } from '../_components/EditOrganizationForm'
+import {
+  EditOrganizationForm,
+  EditOrganizationFormSkeleton,
+} from '../_components/EditOrganizationForm'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Info, Terminal } from 'lucide-react'
+import { Skeleton } from '@/components/ui/skeleton'
 
 type Props = {
   organizationPromise: GetOrganizationReturnType
@@ -57,19 +61,20 @@ export default function OrganizationDetailsPage({
 
 export function OrganizationDetailsPageSkeleton() {
   return (
-    <DashboardPageLayout title='Organizations'>
-      <div className='space-y-3'>
-        <OrganizationCardSkeleton />
-        <OrganizationCardSkeleton />
-        <OrganizationCardSkeleton />
-        <OrganizationCardSkeleton />
-        <OrganizationCardSkeleton />
-        <OrganizationCardSkeleton />
-        <OrganizationCardSkeleton />
-        <OrganizationCardSkeleton />
-        <OrganizationCardSkeleton />
-        <OrganizationCardSkeleton />
-      </div>
+    <DashboardPageLayout title='Organization Details'>
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            <Skeleton className='h-4 w-1/2' />
+          </CardTitle>
+          <CardDescription>
+            <Skeleton className='h-5 w-1/3' />
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <EditOrganizationFormSkeleton />
+        </CardContent>
+      </Card>
     </DashboardPageLayout>
   )
 }
