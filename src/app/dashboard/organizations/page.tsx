@@ -13,7 +13,9 @@ export const metadata: Metadata = {
 export default async function Page() {
   await pageGuard({ callbackUrl: '/dashboard/organizations', adminGuard: true })
 
-  const organizationsPromise = getOrganizations()
+  const organizationsPromise = getOrganizations({
+    orderBy: { createdAt: 'desc' },
+  })
 
   return (
     <Suspense fallback={<OrganizationsPageSkeleton />}>

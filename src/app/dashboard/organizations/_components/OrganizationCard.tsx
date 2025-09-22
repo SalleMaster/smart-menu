@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import { Organization } from '@/generated/prisma'
 import {
   Accordion,
   AccordionContent,
@@ -6,9 +8,9 @@ import {
 } from '@/components/ui/accordion'
 import { Card } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Organization } from '@/generated/prisma'
-import { SquareUser } from 'lucide-react'
+import { Hash, SquareArrowOutUpRight, SquareUser } from 'lucide-react'
 import { EditOrganizationForm } from './EditOrganizationForm'
+import { buttonVariants } from '@/components/ui/button'
 
 type Props = {
   organization: Organization
@@ -20,10 +22,21 @@ export default function OrganizationCard({ organization }: Props) {
       <Accordion type='single' collapsible className='px-4'>
         <AccordionItem value={organization?.id} className='border-b-0'>
           <AccordionTrigger>
-            <div className='flex items-center gap-4'>
-              <SquareUser />
+            <div className='flex w-full justify-between'>
+              <div className='flex items-center gap-4'>
+                <Hash />
+                <p className='font-semibold'>{organization.name}</p>
+              </div>
 
-              <span className='font-semibold'>{organization?.name}</span>
+              <Link
+                href={`/dashboard/organizations/${organization.slug}`}
+                className={buttonVariants({
+                  variant: 'outline',
+                  size: 'icon',
+                })}
+              >
+                <SquareArrowOutUpRight className='w-2 h-2' />
+              </Link>
             </div>
           </AccordionTrigger>
           <AccordionContent>
@@ -38,12 +51,9 @@ export default function OrganizationCard({ organization }: Props) {
 export function OrganizationCardSkeleton() {
   return (
     <Card className='p-4'>
-      <div className='w-full flex items-center gap-4 pr-4'>
-        <div className='w-6'>
-          <SquareUser />
-        </div>
-
-        <Skeleton className='h-4 w-full' />
+      <div className='flex gap-4 items-center w-full'>
+        <Hash />
+        <Skeleton className='h-9 w-full' />
       </div>
     </Card>
   )

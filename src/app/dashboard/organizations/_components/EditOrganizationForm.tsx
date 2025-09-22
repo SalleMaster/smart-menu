@@ -21,6 +21,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { ConfirmationDialog } from '@/components/custom-ui/ConfirmationDialog'
 import { Loader2, Save } from 'lucide-react'
+import { Label } from '@/components/ui/label'
 
 type Props = {
   organization: Organization
@@ -161,5 +162,31 @@ export function EditOrganizationForm({ organization }: Props) {
         </div>
       </form>
     </Form>
+  )
+}
+
+export function EditOrganizationFormSkeleton() {
+  return (
+    <div className='space-y-4'>
+      <div className='grid gap-2'>
+        <Label>Name</Label>
+        <Input placeholder='Some company' disabled />
+        <p className={'text-muted-foreground text-sm'}>Organization name</p>
+      </div>
+      <div className='grid gap-2'>
+        <Label>Slug</Label>
+        <Input placeholder='some-company' disabled />
+        <p className={'text-muted-foreground text-sm'}>Organization slug</p>
+      </div>
+      <div className='flex'>
+        <Button disabled variant='destructive'>
+          Delete
+        </Button>
+        <Button disabled className='ml-auto'>
+          <Save className='mr-2 h-4 w-4' />
+          Edit Organization
+        </Button>
+      </div>
+    </div>
   )
 }

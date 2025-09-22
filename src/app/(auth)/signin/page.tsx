@@ -1,15 +1,10 @@
-import { SearchParams } from '@/lib/types'
 import SignInForm from './_components/SignInForm'
 import getSession from '@/lib/getSession'
 import { redirect } from 'next/navigation'
 
-type Props = {
-  searchParams: SearchParams
-}
-
-export default async function SignInPage({ searchParams }: Props) {
+export default async function SignInPage(props: PageProps<'/signin'>) {
   const session = await getSession()
-  const callbackUrlSearchParam = (await searchParams).callbackUrl
+  const callbackUrlSearchParam = (await props.searchParams).callbackUrl
   const callbackUrl =
     typeof callbackUrlSearchParam === 'string'
       ? callbackUrlSearchParam
