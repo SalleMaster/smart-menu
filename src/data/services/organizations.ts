@@ -7,13 +7,11 @@ import { Organization, Prisma } from '@/generated/prisma'
 
 export type GetOrganizationsReturnType = Promise<Organization[]>
 
-export const getOrganizations = cache(async (): GetOrganizationsReturnType => {
-  console.log('getOrganizations')
-
-  return prisma.organization.findMany({
-    orderBy: { createdAt: 'desc' },
-  })
-})
+export const getOrganizations = cache(
+  async (args: Prisma.OrganizationFindManyArgs): GetOrganizationsReturnType => {
+    return prisma.organization.findMany(args)
+  }
+)
 
 export type GetOrganizationReturnType = Promise<Organization | null>
 

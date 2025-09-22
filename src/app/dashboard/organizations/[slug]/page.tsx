@@ -21,8 +21,6 @@ export default async function Page(
     adminGuard: true,
   })
 
-  await new Promise((resolve) => setTimeout(resolve, 3000)) // Simulate a delay for demo purposes
-
   const organizationPromise = getOrganization({ where: { slug } })
 
   return (
