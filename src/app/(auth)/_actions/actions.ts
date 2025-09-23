@@ -32,5 +32,6 @@ export async function signInWithEmail(values: SignInWithEmailSchemaValues) {
     }
   } finally {
     revalidatePath('/dashboard')
+    revalidatePath('/invite')
   }
 }
