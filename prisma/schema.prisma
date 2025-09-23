@@ -14,11 +14,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Invitation {
+  id             String       @id @default(uuid())
+  email          String
+  token          String       @unique
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  invitedById    String?
+  invitedBy      User?        @relation(fields: [invitedById], references: [id])
+  accepted       Boolean      @default(false)
+  expiresAt      DateTime
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now()) @updatedAt
+}
+
 model Organization {
-  id    String @id @default(uuid())
-  name  String
-  slug  String @unique
-  users User[]
+  id          String       @id @default(uuid())
+  name        String
+  slug        String       @unique
+  users       User[]
+  invitations Invitation[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -44,6 +59,7 @@ model User {
 
   organizationId String?
   organization   Organization? @relation(fields: [organizationId], references: [id])
+  invitations    Invitation[]
 
   @@unique([email])
   @@map("user")

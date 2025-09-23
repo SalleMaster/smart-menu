@@ -24,6 +24,7 @@ import {
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Info, Terminal } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
+import InviteUserForm from './_components/InviteUserForm'
 
 type Props = {
   organizationPromise: GetOrganizationReturnType
@@ -37,15 +38,22 @@ export default function OrganizationDetailsPage({
   return (
     <DashboardPageLayout title='Organization Details'>
       {organization ? (
-        <Card>
-          <CardHeader>
-            <CardTitle>{organization.name}</CardTitle>
-            <CardDescription>Edit organization</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <EditOrganizationForm organization={organization} />
-          </CardContent>
-        </Card>
+        <>
+          <Card>
+            <CardHeader>
+              <CardTitle>{organization.name}</CardTitle>
+              <CardDescription>Edit organization</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <EditOrganizationForm organization={organization} />
+            </CardContent>
+          </Card>
+
+          <InviteUserForm
+            organizationId={organization.id}
+            organizationSlug={organization.slug}
+          />
+        </>
       ) : (
         <Alert variant='default'>
           <Info />
