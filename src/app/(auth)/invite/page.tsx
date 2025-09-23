@@ -12,8 +12,6 @@ export const metadata: Metadata = {
 export default async function Page(props: PageProps<'/invite'>) {
   const session = await getSession()
 
-  await new Promise((resolve) => setTimeout(resolve, 5000))
-
   const searchParams = await props.searchParams
   const token = searchParams.token
 
