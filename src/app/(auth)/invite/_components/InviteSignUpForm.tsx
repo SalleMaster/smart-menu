@@ -31,13 +31,21 @@ import {
 } from './validation'
 import { inviteSignUpEmail } from '../_actions/actions'
 import { Loader2, UserPen } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 type Props = {
   token: string
   email: string
+  organizationSlug: string
 }
 
-export default function InviteSignUpForm({ token, email }: Props) {
+export default function InviteSignUpForm({
+  token,
+  email,
+  organizationSlug,
+}: Props) {
+  const router = useRouter()
+
   const form = useForm<InviteSignUpEmailSchemaValues>({
     resolver: zodResolver(inviteSignUpEmailSchema),
     defaultValues: {
@@ -61,6 +69,7 @@ export default function InviteSignUpForm({ token, email }: Props) {
           toast.success(response.message)
           // Reset form after submission
           form.reset()
+          router.push(`/${organizationSlug}/dashboard`)
         }
       }
     } catch (error) {

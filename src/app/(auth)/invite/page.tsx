@@ -12,15 +12,13 @@ export const metadata: Metadata = {
 export default async function Page(props: PageProps<'/invite'>) {
   const session = await getSession()
 
+  await new Promise((resolve) => setTimeout(resolve, 5000))
+
   const searchParams = await props.searchParams
   const token = searchParams.token
 
   if (!token || typeof token !== 'string') {
-    return (
-      <div className='flex flex-col justify-center items-center min-h-screen'>
-        Invalid invitation, please request a new one.
-      </div>
-    )
+    return <InvalidInvitation />
   }
 
   const invitation = await prisma.invitation.findUnique({
@@ -37,16 +35,24 @@ export default async function Page(props: PageProps<'/invite'>) {
     invitation.accepted ||
     isBefore(invitation.expiresAt, new Date())
   ) {
-    return (
-      <div className='flex flex-col justify-center items-center min-h-screen'>
-        Invalid invitation, please request a new one.
-      </div>
-    )
+    return <InvalidInvitation />
   }
 
   return (
     <div className='flex flex-col justify-center items-center min-h-screen'>
-      <InviteSignUpForm token={token} email={invitation.email} />
+      <InviteSignUpForm
+        token={token}
+        email={invitation.email}
+        organizationSlug={invitation.organization.slug}
+      />
+    </div>
+  )
+}
+
+function InvalidInvitation() {
+  return (
+    <div className='flex flex-col justify-center items-center min-h-screen'>
+      Invalid invitation, please request a new one.
     </div>
   )
 }
