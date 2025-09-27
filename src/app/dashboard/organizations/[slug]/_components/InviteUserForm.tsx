@@ -30,11 +30,13 @@ import { inviteUser } from '../../_actions/actions'
 type Props = {
   organizationId: string
   organizationSlug: string
+  organizationName: string
 }
 
 export default function InviteUserForm({
   organizationId,
   organizationSlug,
+  organizationName,
 }: Props) {
   const form = useForm<InviteUserValues>({
     resolver: zodResolver(inviteUserSchema),
@@ -48,7 +50,11 @@ export default function InviteUserForm({
 
   async function onSubmit(values: InviteUserValues) {
     try {
-      const response = await inviteUser({ values, slug: organizationSlug })
+      const response = await inviteUser({
+        values,
+        organizationSlug,
+        organizationName,
+      })
       if (response) {
         if (response.status === 'fail') {
           return toast.warning(response.message)

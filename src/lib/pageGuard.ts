@@ -15,14 +15,13 @@ const pageGuard = async ({
   const user = session?.user
 
   if (!user) {
-    redirect(`/api/auth/signin?callbackUrl=${callbackUrl}`)
+    redirect(`/signin?callbackUrl=${callbackUrl}`)
   }
 
   const userId = user.id
   const userRole = user.role
   const userName = user.name
   const userEmail = user.email
-  // const userPhone = user.phone
 
   if (!userId || (adminGuard && userRole !== USER_ROLES.ADMIN)) {
     redirect('/')
