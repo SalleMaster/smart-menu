@@ -19,6 +19,7 @@ import {
   InviteUserValues,
 } from '../[slug]/_components/validation'
 import { getUser } from '@/data/services/users'
+import { sendInviteEmail } from '@/lib/email'
 
 export async function addOrganization(
   values: AddOrganizationSchemaValues
@@ -105,13 +106,15 @@ export async function deleteOrganization({
 
 export async function inviteUser({
   values,
-  slug,
+  organizationSlug,
+  organizationName,
 }: {
   values: InviteUserValues
-  slug: string
-}) {
+  organizationSlug: string
+  organizationName: string
+}): Promise<ActionResponse> {
   try {
-    const { userId: invitedById } = await adminActionGuard()
+    const { userId: invitedById, userName } = await adminActionGuard()
 
     const data = inviteUserSchema.parse(values)
 
@@ -129,11 +132,23 @@ export async function inviteUser({
     const token = nanoid(32)
     const expiresAt = addDays(new Date(), 1)
 
+    const emailResult = await sendInviteEmail({
+      token,
+      to: data.email,
+      organizationName,
+      inviterName: userName || 'Admin',
+    })
+
+    if (emailResult.status !== 'success') {
+      return {
+        status: 'fail',
+        message: emailResult.message,
+      }
+    }
+
     await prisma.invitation.create({
       data: { ...data, token, expiresAt, invitedById },
     })
-
-    // Here you would typically send an email to the invited user with the token link
 
     return {
       status: 'success',
@@ -145,6 +160,6 @@ export async function inviteUser({
       message: error instanceof Error ? error.message : 'Unknown error',
     }
   } finally {
-    revalidatePath(`/dashboard/organizations/${slug}`)
+    revalidatePath(`/dashboard/organizations/${organizationSlug}`)
   }
 }

@@ -1,19 +1,13 @@
 'use client'
 
 import { use } from 'react'
-import {
-  GetOrganizationReturnType,
-  GetOrganizationsReturnType,
-} from '@/data/services/organizations'
+import { GetOrganizationReturnType } from '@/data/services/organizations'
 
 import DashboardPageLayout from '@/components/layout/dashboard-page-layout/DashboardPageLayout'
-import { OrganizationCardSkeleton } from '../_components/OrganizationCard'
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
@@ -22,7 +16,7 @@ import {
   EditOrganizationFormSkeleton,
 } from '../_components/EditOrganizationForm'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { Info, Terminal } from 'lucide-react'
+import { Info } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
 import InviteUserForm from './_components/InviteUserForm'
 
@@ -52,6 +46,7 @@ export default function OrganizationDetailsPage({
           <InviteUserForm
             organizationId={organization.id}
             organizationSlug={organization.slug}
+            organizationName={organization.name}
           />
         </>
       ) : (

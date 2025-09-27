@@ -5,12 +5,14 @@ export const adminActionGuard = async () => {
   const session = await getSession()
   const userId = session?.user?.id
   const userRole = session?.user?.role
+  const userName = session?.user?.name
+  const userEmail = session?.user?.email
 
   if (!userId || userRole !== USER_ROLES.ADMIN) {
     throw Error('Unauthorized')
   }
 
-  return { userId, userRole }
+  return { userId, userRole, userName, userEmail }
 }
 
 export const loggedInActionGuard = async () => {
