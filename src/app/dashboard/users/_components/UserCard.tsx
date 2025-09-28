@@ -26,9 +26,6 @@ export function UserCard({ user }: Props) {
     date: user.createdAt,
     locale: srLatn,
   })
-  // const formattedCreatedAt = format(user.createdAt, 'PPpp', {
-  //   locale: srLatn,
-  // })
 
   const roleLabel = getUserRoleLabel(user.role)
 
