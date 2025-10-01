@@ -1,6 +1,9 @@
 import { Metadata } from 'next'
 import pageGuard from '@/lib/pageGuard'
-import { getOrganization } from '@/data/services/organizations'
+import {
+  getOrganization,
+  OrganizationWithRelations,
+} from '@/data/services/organizations'
 import { Suspense } from 'react'
 import OrganizationDetailsPage, {
   OrganizationDetailsPageSkeleton,
@@ -21,7 +24,10 @@ export default async function Page(
     adminGuard: true,
   })
 
-  const organizationPromise = getOrganization({ where: { slug } })
+  const organizationPromise = getOrganization({
+    where: { slug },
+    include: { users: true, invitations: true },
+  }) as Promise<OrganizationWithRelations | null>
 
   return (
     <Suspense fallback={<OrganizationDetailsPageSkeleton />}>
