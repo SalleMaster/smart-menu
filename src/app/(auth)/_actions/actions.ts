@@ -18,8 +18,6 @@ export async function signInWithEmail(values: SignInWithEmailSchemaValues) {
       },
     })
 
-    console.log({ response })
-
     return {
       status: 'success',
       message: 'Signed in successfully',
