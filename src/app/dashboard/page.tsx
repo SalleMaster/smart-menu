@@ -1,13 +1,10 @@
 import { redirect } from 'next/navigation'
 import getSession from '@/lib/getSession'
 import Link from 'next/link'
+import pageGuard from '@/lib/pageGuard'
 
 export default async function Dashboard() {
-  const session = await getSession()
-
-  if (!session) {
-    return redirect('/signin')
-  }
+  await pageGuard({ callbackUrl: '/dashboard', adminGuard: true })
 
   return (
     <div className='font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20'>

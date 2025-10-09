@@ -9,12 +9,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { authClient } from '@/lib/auth-client'
+import { authClient, Session } from '@/lib/auth-client'
 import { UserIcon } from 'lucide-react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-export default function UserDropdown() {
+type Props = {
+  session: Session
+}
+
+export default function UserDropdown({ session }: Props) {
   const router = useRouter()
 
   const handleSignOut = async () => {
@@ -34,24 +37,22 @@ export default function UserDropdown() {
           variant='ghost'
           size='icon'
           className='rounded-full'
-          aria-label='Korisnik'
+          aria-label='User'
         >
           <UserIcon className='h-4 w-4' />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>
+          {session.user.name} <br />{' '}
+          <span className='text-xs text-muted-foreground'>
+            {session.user.email}
+          </span>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href='/dashboard/organizations'>Organizations</Link>
+        <DropdownMenuItem onClick={handleSignOut}>
+          <UserIcon className='h-4 w-4' /> Sign Out
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href='/dashboard/organizations/add'>Add Organization</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href='/dashboard/users'>Users</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleSignOut}>Sign Out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
