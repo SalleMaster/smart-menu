@@ -30,10 +30,13 @@ import {
   signInWithEmailSchema,
   SignInWithEmailSchemaValues,
 } from './validation'
-import { signInWithEmail } from '../../_actions/actions'
+import {
+  getLoggedInUserCallbackUrl,
+  signInWithEmail,
+} from '../../_actions/actions'
 
 type Props = {
-  callbackUrl: string
+  callbackUrl: string | null
 }
 
 export default function SignInForm({ callbackUrl }: Props) {
@@ -59,8 +62,10 @@ export default function SignInForm({ callbackUrl }: Props) {
 
         if (response.status === 'success') {
           toast.success(response.message)
-          form.reset()
-          router.push(callbackUrl)
+
+          const userCallbackUrlResponse = await getLoggedInUserCallbackUrl()
+
+          router.push(callbackUrl || userCallbackUrlResponse.callbackUrl)
         }
       }
     } catch (error) {

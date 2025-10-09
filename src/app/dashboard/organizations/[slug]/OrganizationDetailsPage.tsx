@@ -22,7 +22,6 @@ import { Skeleton } from '@/components/ui/skeleton'
 import InviteUserForm from './_components/InviteUserForm'
 import { UserCard } from '../../users/_components/UserCard'
 import { InvitationCard } from './_components/InvitationCard'
-import { Separator } from '@/components/ui/separator'
 
 type Props = {
   organizationPromise: Promise<OrganizationWithRelations | null>
