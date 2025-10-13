@@ -34,11 +34,28 @@ model Organization {
   slug        String       @unique
   users       User[]
   invitations Invitation[]
+  categories  Category[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
   @@map("organization")
+}
+
+// Category
+model Category {
+  id       String  @id @default(cuid())
+  name     String  @unique
+  active   Boolean @default(false)
+  featured Boolean @default(false)
+
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  organizationId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("category")
 }
 
 model User {

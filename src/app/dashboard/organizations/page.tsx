@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import pageGuard from '@/lib/pageGuard'
+import { pageGuard } from '@/lib/pageGuard'
 import { getOrganizations } from '@/data/services/organizations'
 import { Suspense } from 'react'
 import OrganizationsPage, {

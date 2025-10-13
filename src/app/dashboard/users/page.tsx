@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { Metadata } from 'next'
-import pageGuard from '@/lib/pageGuard'
+import { pageGuard } from '@/lib/pageGuard'
 import UsersPage, { UsersPageSkeleton } from './UsersPage'
 import { getUsers, UserWithRelations } from '@/data/services/users'
 
