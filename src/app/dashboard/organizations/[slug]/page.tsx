@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import pageGuard from '@/lib/pageGuard'
+import { pageGuard } from '@/lib/pageGuard'
 import {
   getOrganization,
   OrganizationWithRelations,

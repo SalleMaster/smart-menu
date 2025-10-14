@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import getSession from '@/lib/getSession'
 import Link from 'next/link'
-import pageGuard from '@/lib/pageGuard'
+import { pageGuard } from '@/lib/pageGuard'
 
 export default async function Dashboard() {
   await pageGuard({ callbackUrl: '/dashboard', adminGuard: true })
