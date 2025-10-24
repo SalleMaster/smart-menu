@@ -15,7 +15,7 @@ datasource db {
 }
 
 model Invitation {
-  id             String       @id @default(uuid())
+  id             String       @id @default(cuid())
   email          String
   token          String       @unique
   organizationId String
@@ -29,12 +29,13 @@ model Invitation {
 }
 
 model Organization {
-  id          String       @id @default(uuid())
+  id          String       @id @default(cuid())
   name        String
   slug        String       @unique
   users       User[]
   invitations Invitation[]
   categories  Category[]
+  products    Product[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -45,17 +46,38 @@ model Organization {
 // Category
 model Category {
   id       String  @id @default(cuid())
-  name     String  @unique
+  name     String
   active   Boolean @default(false)
   featured Boolean @default(false)
 
   organization   Organization? @relation(fields: [organizationId], references: [id])
   organizationId String
 
+  products Product[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([organizationId, name])
   @@map("category")
+}
+
+// Product
+model Product {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+
+  categories Category[]
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("product")
 }
 
 model User {
