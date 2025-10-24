@@ -3,7 +3,16 @@
 import { usePathname, useParams } from 'next/navigation'
 import Link from 'next/link'
 
-import { Calendar, Home, Inbox, Search, Settings } from 'lucide-react'
+import {
+  Package,
+  Home,
+  Logs,
+  NotebookTabs,
+  Settings,
+  AlarmClock,
+  WifiCog,
+  Bell,
+} from 'lucide-react'
 
 import {
   Sidebar,
@@ -19,42 +28,42 @@ import {
 // Menu items.
 const items = [
   {
-    title: 'Home',
+    title: 'Početna',
     url: 'dashboard',
     icon: Home,
   },
   {
-    title: 'Categories',
+    title: 'Kategorije',
     url: 'categories',
-    icon: Inbox,
+    icon: Logs,
   },
   {
-    title: 'Products',
+    title: 'Proizvodi',
     url: 'products',
-    icon: Calendar,
+    icon: Package,
   },
   {
-    title: 'Contact',
+    title: 'Kontakt',
     url: 'contact',
-    icon: Search,
+    icon: NotebookTabs,
   },
   {
-    title: 'Working Hours',
+    title: 'Radno vreme',
     url: 'working-hours',
-    icon: Settings,
+    icon: AlarmClock,
   },
   {
     title: 'Wi-Fi',
     url: 'wifi',
-    icon: Settings,
+    icon: WifiCog,
   },
   {
-    title: 'Notifications',
+    title: 'Obaveštenja',
     url: 'notifications',
-    icon: Settings,
+    icon: Bell,
   },
   {
-    title: 'Settings',
+    title: 'Podešavanja',
     url: 'settings',
     icon: Settings,
   },
@@ -68,7 +77,7 @@ export function AppSidebar() {
     <Sidebar collapsible='icon'>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          {/* <SidebarGroupLabel>Applikacija</SidebarGroupLabel> */}
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

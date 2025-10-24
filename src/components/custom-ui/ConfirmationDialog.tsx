@@ -28,11 +28,11 @@ type ConfirmationDialogProps = {
 export function ConfirmationDialog({
   confirmAction,
   alertTriggerVariant = 'destructive',
-  alertTrigger = 'Delete',
-  alertTitle = 'Are you sure?',
-  alertDescription = 'This action cannot be undone. This will permanently delete and remove data from our servers.',
-  alertCancel = 'Cancel',
-  alertAction = 'Continue',
+  alertTrigger = 'Izbriši',
+  alertTitle = 'Da li ste sigurni?',
+  alertDescription = 'Ova radnja se ne može poništiti. Ovo će trajno izbrisati i ukloniti podatke sa naših servera.',
+  alertCancel = 'Otkaži',
+  alertAction = 'Nastavi',
   isLoading = false,
   isDisabled = false,
 }: ConfirmationDialogProps) {
